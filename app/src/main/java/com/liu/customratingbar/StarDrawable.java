@@ -1,5 +1,6 @@
 package com.liu.customratingbar;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -19,15 +20,14 @@ import androidx.appcompat.content.res.AppCompatResources;
  * Mail  : 3266817262@qq.com
  * Description:
  */
-public class StartDrawable extends LayerDrawable {
+public class StarDrawable extends LayerDrawable {
 
 
-    public StartDrawable(Context context, int startDrawable, int bgDrawable, boolean mKeepOriginColor) {
+    public StarDrawable(Context context, int startDrawable, int bgDrawable, boolean mKeepOriginColor) {
         super(new Drawable[]{
                 createLayerDrawableWithTintAttrRes(bgDrawable, R.attr.colorControlHighlight, context, mKeepOriginColor),
-                createClippedLayerDrawableWithAttrRes(startDrawable, R.attr.colorControlActivated, context, mKeepOriginColor),
-                createClippedLayerDrawableWithTintColor(bgDrawable, Color.TRANSPARENT, context),
-
+                createClippedLayerDrawableWithTintColor(startDrawable, Color.TRANSPARENT, context),
+                createClippedLayerDrawableWithTintAttrRes(startDrawable, R.attr.colorControlActivated, context, mKeepOriginColor)
         });
 
         setId(0, android.R.id.background);
@@ -55,17 +55,19 @@ public class StartDrawable extends LayerDrawable {
         return tileDrawable;
     }
 
+    @SuppressLint("RtlHardcoded")
     private static Drawable createClippedLayerDrawableWithTintColor(int tileResId, int tintColor, Context context) {
 
         return new ClipDrawable(createLayerDrawableWithTintColor(tileResId, tintColor, context),
                 Gravity.LEFT, ClipDrawable.HORIZONTAL);
     }
 
-    private static Drawable createClippedLayerDrawableWithAttrRes(int tileResId, int tintAttrRes,
-                                                                  Context context, boolean mKeepOriginColor) {
+    @SuppressLint("RtlHardcoded")
+    private static Drawable createClippedLayerDrawableWithTintAttrRes(int tileResId, int tintAttrRes,
+                                                                      Context context, boolean mKeepOriginColor) {
 
-        return new ClipDrawable(createLayerDrawableWithTintAttrRes(tileResId, tintAttrRes, context
-                , mKeepOriginColor), Gravity.LEFT, ClipDrawable.HORIZONTAL);
+        return new ClipDrawable(createLayerDrawableWithTintAttrRes(tileResId, tintAttrRes,
+                context, mKeepOriginColor), Gravity.LEFT, ClipDrawable.HORIZONTAL);
     }
 
     public float getTileRatio() {
@@ -73,7 +75,7 @@ public class StartDrawable extends LayerDrawable {
         return (float) drawable.getIntrinsicWidth() / drawable.getIntrinsicHeight();
     }
 
-    public void setStartCount(int count) {
+    public void setStarCount(int count) {
         getTileDrawableByLayerId(android.R.id.background).setTileCount(count);
         getTileDrawableByLayerId(android.R.id.secondaryProgress).setTileCount(count);
         getTileDrawableByLayerId(android.R.id.progress).setTileCount(count);
@@ -96,7 +98,7 @@ public class StartDrawable extends LayerDrawable {
                         Object clipState = mStatedField.get(clipDrawable);
                         Field mDrawableField = clipDrawable.getClass().getDeclaredField("mDrawable");
                         mDrawableField.setAccessible(true);
-                        return (TileDrawable) mDrawableField.get(clipDrawable);
+                        return (TileDrawable) mDrawableField.get(clipState);
                     } catch (NoSuchFieldException | IllegalAccessException e) {
                         e.printStackTrace();
                     }

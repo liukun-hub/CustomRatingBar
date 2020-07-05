@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CustomRatingBar">
+        <!-- color of star -->
+        <attr name="starColor" format="color|reference" />
 
-        <attr name="startColor" format="color|reference" />
-        <attr name="subStartColor" format="color|reference" />
+        <!-- color of secondary star -->
+        <attr name="subStarColor" format="color|reference" />
+
+        <!-- color of background star -->
         <attr name="bgColor" format="color|reference" />
-        <attr name="startDrawable" format="reference" />
+
+        <!-- drawable of star -->
+        <attr name="starDrawable" format="reference" />
+
+        <!-- drawable of background star -->
         <attr name="bgDrawable" format="reference" />
+
+        <!-- if keep the origin color of star drawable -->
         <attr name="keepOriginColor" format="boolean" />
+
+        <!-- the scale factor of ratingbar that can change the spacing of star -->
         <attr name="scaleFactor" format="float" />
-        <attr name="startSpacing" format="dimension" />
-        <attr name="right2left" format="boolean" />
+
+        <!-- additional the spacing of the star -->
+        <attr name="starSpacing" format="dimension" />
+
+        <!-- right to left -->
+        <attr name="right2Left" format="boolean" />
     </declare-styleable>
 
 </resources>

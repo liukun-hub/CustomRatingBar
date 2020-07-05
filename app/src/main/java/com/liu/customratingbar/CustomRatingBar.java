@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.RatingBar;
 
@@ -54,7 +53,8 @@ public class CustomRatingBar extends AppCompatRatingBar {
      */
     private float mStartSpacing;
 
-    private StartDrawable mDrawable;
+    private StarDrawable mDrawable;
+    //    private StarDrawable mDrawable;
     private float mTempRating;
 
     public void setOnRatingBarChangeListener(OnRatingBarChangeListener onRatingBarChangeListener) {
@@ -86,13 +86,13 @@ public class CustomRatingBar extends AppCompatRatingBar {
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomRatingBar, defStyleAttr, 0);
-        mRight2left = typedArray.getBoolean(R.styleable.CustomRatingBar_right2left, false);
+        mRight2left = typedArray.getBoolean(R.styleable.CustomRatingBar_right2Left, false);
 
-        if (typedArray.hasValue(R.styleable.CustomRatingBar_startColor)) {
+        if (typedArray.hasValue(R.styleable.CustomRatingBar_starColor)) {
             if (mRight2left) {
-                mBgColor = typedArray.getColorStateList(R.styleable.CustomRatingBar_startColor);
+                mBgColor = typedArray.getColorStateList(R.styleable.CustomRatingBar_starColor);
             } else {
-                mStartColor = typedArray.getColorStateList(R.styleable.CustomRatingBar_startColor);
+                mStartColor = typedArray.getColorStateList(R.styleable.CustomRatingBar_starColor);
             }
         }
         if (typedArray.hasValue(R.styleable.CustomRatingBar_bgColor)) {
@@ -103,25 +103,27 @@ public class CustomRatingBar extends AppCompatRatingBar {
             }
         }
 
-        if (typedArray.hasValue(R.styleable.CustomRatingBar_subStartColor)) {
+        if (typedArray.hasValue(R.styleable.CustomRatingBar_subStarColor)) {
             if (!mRight2left) {
-                mSubStartColor = typedArray.getColorStateList(R.styleable.CustomRatingBar_subStartColor);
+                mSubStartColor = typedArray.getColorStateList(R.styleable.CustomRatingBar_subStarColor);
             }
         }
 
         mKeepOriginColor = typedArray.getBoolean(R.styleable.CustomRatingBar_keepOriginColor, false);
         mScaleFactor = typedArray.getFloat(R.styleable.CustomRatingBar_scaleFactor, 1);
-        mStartSpacing = typedArray.getFloat(R.styleable.CustomRatingBar_startSpacing, 0);
+        mStartSpacing = typedArray.getFloat(R.styleable.CustomRatingBar_starSpacing, 0);
 
-        mStartDrawable = typedArray.getResourceId(R.styleable.CustomRatingBar_startDrawable, R.drawable.ic_rating_star_solid);
+        mStartDrawable = typedArray.getResourceId(R.styleable.CustomRatingBar_starDrawable, R.drawable.ic_rating_star_solid);
         if (typedArray.hasValue(R.styleable.CustomRatingBar_bgDrawable)) {
             mBgDrawable = typedArray.getResourceId(R.styleable.CustomRatingBar_bgDrawable, R.drawable.ic_rating_star_solid);
         } else {
             mBgDrawable = mStartDrawable;
         }
         typedArray.recycle();
-        mDrawable = new StartDrawable(context, mStartDrawable, mBgDrawable, mKeepOriginColor);
-        mDrawable.setStartCount(getNumStars());
+        mDrawable = new StarDrawable(context, mStartDrawable, mBgDrawable, mKeepOriginColor);
+//        mDrawable = new StarDrawable(context, mStartDrawable, mBgDrawable, mKeepOriginColor);
+//        mDrawable.setStartCount(getNumStars());
+        mDrawable.setStarCount(getNumStars());
         setProgressDrawable(mDrawable);
         if (mRight2left) {
             setRating(getNumStars() - getRating());
@@ -133,7 +135,8 @@ public class CustomRatingBar extends AppCompatRatingBar {
     public void setNumStars(int numStars) {
         super.setNumStars(numStars);
         if (mDrawable != null) {
-            mDrawable.setStartCount(numStars);
+//            mDrawable.setStartCount(numStars);
+            mDrawable.setStarCount(numStars);
         }
     }
 
