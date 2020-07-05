@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomRatingBar">
+
+        <attr name="startColor" format="color|reference" />
+        <attr name="subStartColor" format="color|reference" />
+        <attr name="bgColor" format="color|reference" />
+        <attr name="startDrawable" format="reference" />
+        <attr name="bgDrawable" format="reference" />
+        <attr name="keepOriginColor" format="boolean" />
+        <attr name="scaleFactor" format="float" />
+        <attr name="startSpacing" format="dimension" />
+        <attr name="right2left" format="boolean" />
+    </declare-styleable>
+
+</resources>
